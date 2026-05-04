@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>L4 Readiness - Ziggyfeet</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 20px auto;
+      max-width: 200px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #ff5c3a;
+      margin-bottom: 10px;
+    }
+
+    .section {
+      background-color: #111;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: 1px solid #222;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #ff5c3a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #ff784f;
+    }
+
+    .result {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .pass { color: #2ecc71; }
+    .fail { color: #e74c3c; }
+
+    .feedback {
+      margin-top: 15px;
+    }
+
+    details {
+      background-color: #111;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      border: 1px solid #222;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #333;
+      margin: 30px 0;
+    }
+
+    .footer {
+      font-size: 14px;
+      color: #ccc;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- LOGO -->
+<img src="zf.jpg" alt="ZiggyFeet Logo" class="logo">
+
+<h1>Am I Ready for Level 4 at ZiggyFeet?</h1>
+
+<p>
+Level 4 is for dancers who have built solid foundations and are ready to train to be better social dancers, with more intention, detail, and depth.
+<br><br>
+You don’t need to be perfect, you need to have put in the effort to establish the groundwork for further growth.
+<br><br>
+Take a moment and reflect honestly:
+</p>
+
+<div class="section">
+<h2>1. Syllabus Confidence</h2>
+<label><input type="checkbox"> At socials, I feel confident with the key patterns and footwork taught in Levels 1, 2 and 3.</label>
+<label><input type="checkbox"> I can lead/follow comfortably without needing my partner to fix my timing.</label>
+<label><input type="checkbox"> I can recover and continue dancing when things go wrong.</label>
+<label><input type="checkbox"> I feel in control of my basics (anchor & timing).</label>
+</div>
+
+<div class="section">
+<h2>2. Timing & Technique Awareness</h2>
+<label><input type="checkbox"> I can maintain timing consistently throughout a full song.</label>
+<label><input type="checkbox"> I understand connection (stretch/compression).</label>
+<label><input type="checkbox"> I am comfortable drilling basics.</label>
+<label><input type="checkbox"> I notice movement details beyond patterns.</label>
+</div>
+
+<div class="section" id="socialSection">
+<h2>3. Social Dance Experience</h2>
+<label><input type="checkbox"> I social dance regularly or have repeated L3 multiple times.</label>
+<label><input type="checkbox"> I dance with partners of different levels.</label>
+<label><input type="checkbox"> I can dance several full songs without feeling overwhelmed.</label>
+</div>
+
+<div class="section">
+<h2>4. Mindset for Level 4</h2>
+<label><input type="checkbox"> I take ownership of my learning.</label>
+<label><input type="checkbox"> I am motivated to grow beyond levels.</label>
+<label><input type="checkbox"> I understand L4 focuses on refinement.</label>
+<label><input type="checkbox"> I am ready for a faster-paced, detail-oriented class.</label>
+</div>
+
+<button onclick="checkReadiness()">Check My Readiness</button>
+
+<div id="result" class="result"></div>
+<div id="details" class="feedback"></div>
+
+<details>
+<summary><strong>View Syllabus Guide</strong></summary>
+<p><strong>L1:</strong> Left Side Pass, Sugar Push, Inside Turn, Underarm Turns, Starter Step, Sugar Tuck, Tuck Pass, Outside Turn</p>
+<p><strong>L2A:</strong> Whips + Variations (Basket, Same-side, Reverse, etc.)</p>
+<p><strong>L2B:</strong> Handchanges, Folds</p>
+<p><strong>L3:</strong> Musicality, Technique, Styling, Speed control, Weight support</p>
+</details>
+
+<hr>
+
+<div class="footer">
+<p>
+At Ziggyfeet, progression isn’t about rushing — it’s about building dancers who feel confident, capable, and proud of their foundations.
+<br><br>
+“In school, the worst students repeat levels. Dance is the opposite, it’s the best students who repeat levels.” - Wee Tze Yi
+</p>
+</div>
+
+<script>
+function checkReadiness() {
+  const sections = document.querySelectorAll('.section');
+  let allPass = true;
+  let feedback = "";
+
+  sections.forEach(sec => {
+    const checks = sec.querySelectorAll('input');
+    let count = 0;
+
+    checks.forEach(c => { if (c.checked) count++; });
+
+    let total = checks.length;
+    let required = 3;
+
+    if (sec.id === "socialSection") required = 2;
+
+    if (count < required) {
+      allPass = false;
+      feedback += `<p>Needs work: ${sec.querySelector('h2').innerText} (${count}/${total})</p>`;
+    }
+  });
+
+  const resultDiv = document.getElementById('result');
+  const detailsDiv = document.getElementById('details');
+
+  if (allPass) {
+    resultDiv.innerHTML = "✅ You’re likely ready for Level 4.";
+    resultDiv.className = "result pass";
+    detailsDiv.innerHTML = "";
+  } else {
+    resultDiv.innerHTML = "❌ You're not yet ready for Level 4.";
+    resultDiv.className = "result fail";
+    detailsDiv.innerHTML = `
+      <p>That’s completely okay. We recommend:</p>
+      <ul>
+        <li>Repeating Level 3 for consolidation</li>
+        <li>Increasing your social dance exposure</li>
+        <li>Speaking to an instructor for guidance</li>
+      </ul>
+      ${feedback}
+    `;
+  }
+}
+</script>
+
+</body>
+</html>
